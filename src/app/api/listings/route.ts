@@ -71,10 +71,24 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
 
-    const category = searchParams.get("category");
-    const locationValue = searchParams.get("locationValue");
+    const category = searchParams.get("category") ?? undefined;
+    const locationValue = searchParams.get("locationValue") ?? undefined;
     const minPrice = searchParams.get("minPrice");
     const maxPrice = searchParams.get("maxPrice");
+
+    const { isDemoMode } = await import("@/lib/demo");
+    const { getDemoListings } = await import("@/lib/demo-data");
+
+    const filters = {
+      category,
+      locationValue,
+      minPrice: minPrice ? Number(minPrice) : undefined,
+      maxPrice: maxPrice ? Number(maxPrice) : undefined,
+    };
+
+    if (isDemoMode()) {
+      return NextResponse.json(getDemoListings(filters));
+    }
 
     const listings = await prisma.listing.findMany({
       where: {
@@ -89,17 +103,19 @@ export async function GET(req: Request) {
             }
           : {}),
       },
-      orderBy:{
-        createdAt:"desc"
-      }
+      orderBy: {
+        createdAt: "desc",
+      },
     });
+
+    if (listings.length === 0) {
+      return NextResponse.json(getDemoListings(filters));
+    }
 
     return NextResponse.json(listings);
   } catch (error) {
     console.error("[LISTINGS_GET]", error);
-    return NextResponse.json(
-      { error: "Failed to fetch listings" },
-      { status: 500 },
-    );
+    const { getDemoListings } = await import("@/lib/demo-data");
+    return NextResponse.json(getDemoListings());
   }
 }

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#222"/>
+    </marker>
+    <style>
+      .box { fill:#fff; stroke:#222; stroke-width:1.5; }
+      .impl { fill:#E8F5E9; stroke:#2E7D32; stroke-width:1.5; }
+      .prod { fill:#FFF3E0; stroke:#EF6C00; stroke-width:1.5; stroke-dasharray:5 3; }
+      .title { font:700 16px Nunito Sans, Arial, sans-serif; fill:#222; }
+      .label { font:600 13px Nunito Sans, Arial, sans-serif; fill:#222; }
+      .small { font:12px Nunito Sans, Arial, sans-serif; fill:#444; }
+      .legend { font:12px Nunito Sans, Arial, sans-serif; fill:#222; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="780" fill="#FAFAFA"/>
+  <text x="40" y="40" class="title">Vacation Rental Marketplace  Architecture</text>
+  <text x="40" y="62" class="small">Green = implemented in this assignment · Orange dashed = production-scale extension</text>
+
+  <rect x="40" y="90" width="160" height="70" rx="10" class="impl"/>
+  <text x="55" y="120" class="label">Browser / Client</text>
+  <text x="55" y="140" class="small">Listing UI, gallery,</text>
+  <text x="55" y="156" class="small">calendar, modals</text>
+
+  <rect x="260" y="80" width="280" height="100" rx="10" class="impl"/>
+  <text x="275" y="110" class="label">Next.js App Router</text>
+  <text x="275" y="130" class="small">SSR/RSC + Client Components</text>
+  <text x="275" y="148" class="small">Route Handlers · Server Actions</text>
+
+  <rect x="600" y="80" width="200" height="100" rx="10" class="impl"/>
+  <text x="615" y="110" class="label">Auth (Better Auth)</text>
+  <text x="615" y="130" class="small">Sessions / OAuth hooks</text>
+  <text x="615" y="148" class="small">Demo: memory adapter</text>
+
+  <rect x="860" y="80" width="280" height="100" rx="10" class="impl"/>
+  <text x="875" y="110" class="label">Listing Content</text>
+  <text x="875" y="130" class="small">Typed Candolim dataset</text>
+  <text x="875" y="148" class="small">+ Prisma models (optional DB)</text>
+
+  <rect x="260" y="240" width="220" height="90" rx="10" class="impl"/>
+  <text x="275" y="270" class="label">Prisma ORM</text>
+  <text x="275" y="290" class="small">@prisma/adapter-pg</text>
+  <text x="275" y="308" class="small">Generated client</text>
+
+  <rect x="520" y="240" width="220" height="90" rx="10" class="prod"/>
+  <text x="535" y="270" class="label">PostgreSQL</text>
+  <text x="535" y="290" class="small">Listings · Users · Bookings</text>
+  <text x="535" y="308" class="small">(requires DATABASE_URL)</text>
+
+  <rect x="780" y="240" width="220" height="90" rx="10" class="impl"/>
+  <text x="795" y="270" class="label">Image Assets / CDN</text>
+  <text x="795" y="290" class="small">Local /public + Cloudinary</text>
+  <text x="795" y="308" class="small">next/image optimization</text>
+
+  <rect x="40" y="390" width="240" height="90" rx="10" class="impl"/>
+  <text x="55" y="420" class="label">Google Maps</text>
+  <text x="55" y="440" class="small">Embed iframe (no key)</text>
+  <text x="55" y="458" class="small">Optional JS API key</text>
+
+  <rect x="320" y="390" width="240" height="90" rx="10" class="prod"/>
+  <text x="335" y="420" class="label">Search / Cache</text>
+  <text x="335" y="440" class="small">Redis · OpenSearch</text>
+  <text x="335" y="458" class="small">Geo + availability index</text>
+
+  <rect x="600" y="390" width="240" height="90" rx="10" class="prod"/>
+  <text x="615" y="420" class="label">Payments</text>
+  <text x="615" y="440" class="small">Stripe / Razorpay</text>
+  <text x="615" y="458" class="small">Not in this assignment</text>
+
+  <rect x="880" y="390" width="240" height="90" rx="10" class="prod"/>
+  <text x="895" y="420" class="label">Observability</text>
+  <text x="895" y="440" class="small">Logs · Metrics · Traces</text>
+  <text x="895" y="458" class="small">Sentry / OpenTelemetry</text>
+
+  <rect x="260" y="540" width="680" height="100" rx="10" class="prod"/>
+  <text x="275" y="575" class="label">Deployment &amp; Edge</text>
+  <text x="275" y="598" class="small">Vercel / container platform · CDN · WAF · Secrets manager · CI (lint, typecheck, build, e2e screenshots)</text>
+  <text x="275" y="618" class="small">Scaling: horizontal Next.js instances, read replicas, cached listing pages, async booking workers</text>
+
+  <line x1="200" y1="125" x2="260" y2="125" stroke="#222" marker-end="url(#arrow)"/>
+  <line x1="540" y1="130" x2="600" y2="130" stroke="#222" marker-end="url(#arrow)"/>
+  <line x1="800" y1="130" x2="860" y2="130" stroke="#222" marker-end="url(#arrow)"/>
+  <line x1="400" y1="180" x2="370" y2="240" stroke="#222" marker-end="url(#arrow)"/>
+  <line x1="480" y1="285" x2="520" y2="285" stroke="#222" marker-end="url(#arrow)"/>
+  <line x1="700" y1="180" x2="880" y2="240" stroke="#222" marker-end="url(#arrow)"/>
+  <line x1="320" y1="330" x2="160" y2="390" stroke="#222" marker-end="url(#arrow)"/>
+
+  <text x="40" y="700" class="legend">Data flow: Browser ’ Next.js (RSC/handlers) ’ Auth + Listing services ’ Prisma/Postgres (when configured) ’ CDN images &amp; Maps embed.</text>
+  <text x="40" y="722" class="legend">This take-home prioritizes visual listing fidelity with demo data; production adds durable DB, payments, search, and observability.</text>
+  <text x="40" y="755" class="small">File: docs/architecture.svg · Playpower Airbnb Clone</text>
+</svg>

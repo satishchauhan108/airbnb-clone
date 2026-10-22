@@ -1,55 +1,97 @@
-# 🏡 Full-Stack Airbnb Clone – Booking Platform
-<img width="1280" height="720" alt="airbnb-clone" src="https://github.com/user-attachments/assets/78f8179f-60b4-4b30-9c09-5ef84c6123d0" />
+# Airbnb Clone
 
-A modern **full-stack Airbnb-style booking platform** built with **Next.js 16**, **Better Auth**, **Prisma**, and **PostgreSQL**.  
-Users can create listings, book trips, manage reservations, favorite listings, and filter results by category, location, and price.
+An Airbnb-inspired property discovery and booking app built with Next.js. Browse
+property details and photos, search and filter listings, and use the account,
+favorites, trips, reservations, and host listing flows.
 
-This project is designed to reflect **real-world production patterns** and is ideal for learning or showcasing full-stack development skills.
+## Features
 
----
+- Responsive property browsing and listing detail pages
+- Search and filters for location, category, and price
+- Email/password authentication, with optional Google sign-in
+- Favorites, reservations, trips, and property management
+- Cloudinary image uploads for host-created listings
+- Read-only demo listings for running the browsing experience without a database
 
-## ✨ Features
+## Tech stack
 
-✔ User authentication (Email & Google OAuth)  
-✔ Create and manage property listings  
-✔ Image uploads using Cloudinary  
-✔ Booking system (reservations & trips)  
-✔ Prevent double bookings  
-✔ Favorite listings  
-✔ Filter by category, location, and price range  
-✔ Server Actions for data fetching  
-✔ Loading skeletons & empty states  
-✔ Fully responsive UI  
-✔ Deployed on Vercel  
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-- Next.js 16 (App Router)
-- React
-- TypeScript
+- Next.js 16 App Router, React 19, and TypeScript
 - Tailwind CSS
-- Axios
-- React Date Range
-
-### Backend
-- Next.js Server Actions
-- Prisma ORM
-- PostgreSQL
 - Better Auth
-- Cloudinary
+- Prisma ORM and PostgreSQL
+- Cloudinary for listing image uploads
 
-### Deployment
-- Vercel
+## Getting started
 
----
+### Requirements
 
-## 🎥 Tutorial  
-Watch the full tutorial on YouTube here:  
-👉 [YouTube Tutorial](https://youtu.be/9FWmNSKzN5w)  
+- Node.js 20.9 or later
+- pnpm 9.15.9
 
+### Install dependencies
 
+```sh
+pnpm install
+```
 
+### Configure environment variables
+
+Copy `.env.example` to `.env` and update the values for the features you want to
+use. In PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+The example configuration enables demo mode:
+
+```env
+DEMO_MODE=true
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_SECRET=replace-with-a-long-random-secret
+```
+
+With `DEMO_MODE=true`, you can run the app and browse demo listings without
+configuring PostgreSQL. Demo mode is intended for browsing; database-backed
+features such as creating listings and managing reservations require a
+PostgreSQL database.
+
+For full functionality:
+
+1. Create a PostgreSQL database and set `DATABASE_URL` in `.env`.
+2. Set `DEMO_MODE=false`.
+3. Set `BETTER_AUTH_SECRET` to a long, random secret.
+4. To create the database tables from the Prisma schema, run:
+
+   ```sh
+   pnpm exec prisma db push
+   ```
+
+5. For Google sign-in, set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
+6. For host listing image uploads, set `CLOUDINARY_CLOUD_NAME`,
+   `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`.
+
+Google sign-in and Cloudinary uploads are optional unless you need those
+features. Do not commit your `.env` file or real credentials.
+
+### Run locally
+
+```sh
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Available scripts
+
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the Next.js development server |
+| `pnpm build` | Generate the Prisma client and build the app |
+| `pnpm start` | Start the production server (after `pnpm build`) |
+| `pnpm lint` | Run ESLint |
+| `pnpm typecheck` | Run the TypeScript type checker |
+| `pnpm prisma:generate` | Generate the Prisma client |
+| `pnpm prisma:validate` | Validate the Prisma schema |
 

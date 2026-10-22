@@ -1,7 +1,6 @@
 import ListingCard from "./ListingCard";
 import { getCurrentUser } from "@/server-actions/getCurrentUser";
-import { getListings } from "@/services/listing";
-import { Listing } from "@/generated/prisma/client";
+import { getListings } from "@/server-actions/getListings";
 import EmptyListings from "../ui/EmptyListings";
 
 interface HomeProps {
@@ -17,26 +16,33 @@ export default async function Listings({ searchParams }: HomeProps) {
   const params = searchParams;
   const currentUser = await getCurrentUser();
   const listings = await getListings({
-    category: params.category,
-    locationValue: params.locationValue,
+    category: typeof params.category === "string" ? params.category : undefined,
+    locationValue:
+      typeof params.locationValue === "string" ? params.locationValue : undefined,
     minPrice: params.minPrice ? Number(params.minPrice) : undefined,
     maxPrice: params.maxPrice ? Number(params.maxPrice) : undefined,
   });
-  
-  if(listings.length === 0){
-     return (
-         <EmptyListings
-          title="No listings found"
-          subtitle="We couldn’t find any listings that match your filters.
+
+  if (listings.length === 0) {
+    return (
+      <EmptyListings
+        title="No listings found"
+        subtitle="We couldn’t find any listings that match your filters.
         Try adjusting or clearing some filters to see more results."
         filter
-        />
-       )
+      />
+    );
   }
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-      {listings.map((listing:Listing) => {
-        return <ListingCard key={listing.id} listing={listing} currentUser={currentUser} />;
+      {listings.map((listing) => {
+        return (
+          <ListingCard
+            key={listing.id}
+            listing={listing}
+            currentUser={currentUser}
+          />
+        );
       })}
     </div>
   );

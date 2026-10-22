@@ -1,8 +1,12 @@
-import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma";
+import { isDemoMode } from "@/lib/demo";
 import { headers } from "next/headers";
 
 export async function getCurrentUser() {
+  if (isDemoMode()) return null;
+
+  const { auth } = await import("@/lib/auth");
+  const prisma = (await import("@/lib/prisma")).default;
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });

@@ -1,7 +1,13 @@
-import prisma from "@/lib/prisma";
+import { getDemoListing } from "@/lib/demo-data";
+import { isDemoMode } from "@/lib/demo";
 
 export async function getListing(listingId: string) {
+  if (isDemoMode()) {
+    return getDemoListing(listingId);
+  }
+
   try {
+    const prisma = (await import("@/lib/prisma")).default;
     const listing = await prisma.listing.findUnique({
       where: {
         id: listingId,
@@ -23,7 +29,10 @@ export async function getListing(listingId: string) {
       },
     });
 
-    if (!listing) return null;
+    if (!listing) {
+      // Fall back to demo catalog for assessment routes when DB has no row
+      return getDemoListing(listingId);
+    }
 
     return {
       ...listing,
@@ -35,6 +44,6 @@ export async function getListing(listingId: string) {
     };
   } catch (error) {
     console.error(error);
-    return null;
+    return getDemoListing(listingId);
   }
 }
